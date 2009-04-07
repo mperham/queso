@@ -1,0 +1,21 @@
+<% if @results.present? %>
+  <table class="results">
+    <thead>
+      <tr>
+        <% query_headers.each do |head| %>
+        <th>
+          <%= head.name %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @results.each_with_index do |result, idx| %>
+        <tr class="<%= stripe_class(idx) %>">
+          <% column_values(result) do |value| -%>
+            <td><%= formatted(value) %></td>
+          <% end -%>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+<% end %>

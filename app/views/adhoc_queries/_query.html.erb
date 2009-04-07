@@ -1,0 +1,23 @@
+<div class="adhoc_query">
+  <h1>Search for <%= model.name.pluralize.titleize %></h1>
+  
+  <h2>Criteria</h2>
+  <table class="terms">
+    <% current_query.terms.each do |term| -%>
+      <tr>
+        <td><%= term.attribute %></td>
+        <td><%= term.operator %></td>
+        <td><%= term.value %></td>
+        <td><%= delete_term(term) %></td>
+      </tr>
+    <% end -%>
+    <tr class="newterm">
+      <td><%= attribute_selector %></td>
+      <td><%= operator_selector %></td>
+      <td><%= value_input %></td>
+      <td><%= add_term(term) %></td>
+    </tr>
+  </table>
+    
+    
+</div>

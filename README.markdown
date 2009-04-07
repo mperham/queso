@@ -10,7 +10,7 @@ Installation
 
 Just add AS as a gem to your Rails 2.3 application, via `config/environment.rb`:
 
-    config.gem 'mperham-adhoc-search'
+    config.gem 'mperham-adhoc-search', :source => 'http://gems.github.com'
 
 Usage
 -----
