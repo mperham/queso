@@ -1,0 +1,2 @@
+class AdhocQuery
+end

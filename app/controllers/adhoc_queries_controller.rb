@@ -1,0 +1,2 @@
+class AdhocQueriesController < ApplicationController
+end
