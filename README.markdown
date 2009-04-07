@@ -42,14 +42,13 @@ Current Limitations
 Thanks
 ------
 
-The development of Adhoc Search is sponsored by OneSpot, http://www.onespot.com.
+The development of Adhoc Search is sponsored by [OneSpot](http://www.onespot.com).
 
 
 Credits
 -------
 
-Mike Perham 
-[http://mikeperham.com](http://mikeperham.com)
-[http://twitter.com/mperham](http://twitter.com/mperham)
+
+Written by [Mike Perham](http://mikeperham.com).  [Follow me on Twitter](http://twitter.com/mperham).
 
 If you use and like Adhoc Search, please recommend me at [Working with Rails](http://www.workingwithrails.com/person/10797-mike-perham).
