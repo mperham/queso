@@ -1,5 +1,7 @@
-module AdhocQueriesHelper
+require 'inquiry_search'
+module InquirySearchHelper
   def attribute_selector(model)
+    p model.columns
     select_tag 'term[attribute]', options_from_collection_for_select(model.columns, :name, :name)
   end
   
@@ -12,10 +14,11 @@ module AdhocQueriesHelper
   end
   
   def current_query(model)
-    unless session.has_key? "adhoc_#{model.name}_query"
-      session["adhoc_#{model.name}_query"] = AdhocQuery.new
+    session.clear
+    unless session.has_key? "inquiry_#{model.name}_query"
+      session["inquiry_#{model.name}_query"] = Inquiry::Search.new
     end
-    session["adhoc_#{model.name}_query"]
+    session["inquiry_#{model.name}_query"]
   end
   
   def delete_term(term)

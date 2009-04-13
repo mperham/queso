@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Force the include of the inquiry helper
-  helper AdhocQueriesHelper
+  helper InquirySearchHelper
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 end

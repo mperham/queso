@@ -1,3 +1,3 @@
-require 'adhoc_search'
+require 'inquiry'
 
 ActiveRecord::Base.send(:include, AdhocSearchable)
