@@ -1,8 +1,8 @@
 Inquiry
 ============
 
-Inquiry is an engine for Rails 2.3+ which adds the ability to perform "adhoc" queries
-against the database for any model.
+Inquiry is an engine for Rails 2.3+ which adds a generic search interface for building queries on any
+model.  See, for example, Trac''s [generic query interface for tickets](http://trac.edgewall.org/query).
 
 
 Installation
