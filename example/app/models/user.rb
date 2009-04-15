@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  adhoc_searchable
+  queso_searchable
 end

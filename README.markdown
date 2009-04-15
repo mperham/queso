@@ -1,14 +1,15 @@
-Inquiry
+Queso
 ============
 
-Inquiry is an engine for Rails 2.3+ which adds a generic search interface for building queries on any
+Queso is an engine for Rails 2.3+ which adds a generic search interface for building queries on any
 model.  See, for example, Trac''s [generic query interface for tickets](http://trac.edgewall.org/query).
 
+It is also a delicious cheese-based foodstuff which pairs excellently with chips and Dos XX beer.
 
 Installation
 ------------
 
-Just add Inquiry as a gem to your Rails 2.3 application, via `config/environment.rb`:
+Just add Queso as a gem to your Rails 2.3 application, via `config/environment.rb`:
 
     config.gem 'mperham-inquiry', :source => 'http://gems.github.com'
 
@@ -19,11 +20,11 @@ First, mark the models you will want to search as searchable.  This also gives y
 ability to customize the search and results UI:
 
     class MyModel < ActiveRecord::Base
-      adhoc_searchable
+      queso_searchable
 
 Second, add the query partial to a page in your application to display the search interface:
 
-    <%= render :partial => 'adhoc_queries/query', :locals => { :model => MyModel } %>
+    <%= render :partial => 'queso/query', :locals => { :model => MyModel } %>
 
 Lastly, add a container for the query results in the HTML page:
 
@@ -42,7 +43,7 @@ Current Limitations
 Thanks
 ------
 
-The development of Inquiry is sponsored by [OneSpot](http://www.onespot.com).
+The development of Queso is sponsored by [OneSpot](http://www.onespot.com).
 
 
 Credits
@@ -51,4 +52,4 @@ Credits
 
 Written by [Mike Perham](http://mikeperham.com).  [Follow me on Twitter](http://twitter.com/mperham).
 
-If you use and like Inquiry, please recommend me at [Working with Rails](http://www.workingwithrails.com/person/10797-mike-perham).
+If you use and like Queso, please recommend me at [Working with Rails](http://www.workingwithrails.com/person/10797-mike-perham).

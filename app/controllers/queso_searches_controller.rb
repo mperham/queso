@@ -1,4 +1,4 @@
-class AdhocQueriesController < ApplicationController
+class QuesoSearchesController < ApplicationController
 
   def search
     # First add a term if the user added a term and 
@@ -12,7 +12,7 @@ class AdhocQueriesController < ApplicationController
   def add_term
     if params[:term][:attribute].present? and params[:term][:operator].present?
       query = current_query(params[:model_class])
-      query.terms << AdhocQuery::Term.new(params[:term])
+      query.terms << Queso::Term.new(params[:term])
       # TODO render new term row
     end
   end

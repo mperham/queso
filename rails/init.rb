@@ -1,3 +1,3 @@
-require 'inquiry'
+require 'queso'
 
-ActiveRecord::Base.send(:include, AdhocSearchable)
+ActiveRecord::Base.send(:include, QuesoSearchable)
