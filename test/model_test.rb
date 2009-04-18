@@ -1,12 +1,22 @@
 require 'test_helper'
 require 'queso_search'
 
+class ActiveRecord::ConnectionAdapters::SQLiteAdapter
+  def execute_with_log(sql, name = nil)
+    $sql << sql
+    {}
+  end
+  alias_method_chain :execute, :log
+end
+
 class FakeModel < ActiveRecord::Base
   queso_searchable
 end
 
 class ModelTest < Test::Unit::TestCase
-  
+  def setup
+    $sql = []
+  end
   context "Basic model" do
   
     should "provide type-specific operators" do
@@ -28,12 +38,21 @@ class ModelTest < Test::Unit::TestCase
       search.terms << constraint('firstname', '=', 'mike')
       
       assert_equal 0, search.results.size
+      assert_sql "SELECT * FROM \"fake_models\" WHERE (firstname = 'mike')  LIMIT 25 OFFSET 0"
+      assert_equal 0, search.count
+      assert_sql "SELECT count(*) AS count_all FROM \"fake_models\" WHERE (firstname = 'mike') "
     end
 
   end
-  
+
   private
-  
+
+  def assert_sql(sql)
+    exsql = $sql.first
+    $sql.clear
+    assert_equal sql, exsql
+  end
+
   def constraint(attrib, op, value=nil)
     Queso::Constraint.new do |c|
       c.attribute = attrib

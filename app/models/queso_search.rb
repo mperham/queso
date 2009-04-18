@@ -34,6 +34,12 @@ module Queso
       self.current_page = 1
     end
     
+    def count
+      query = klass
+      query = query.scoped(:conditions => constraints) if constraints?
+      query.count
+    end
+    
     def results
       query = klass.scoped(:limit => self.page_size, :offset => (self.current_page - 1) * page_size)
       query = query.scoped(:order => sorting) if sorting?
