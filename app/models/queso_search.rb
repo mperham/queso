@@ -74,7 +74,7 @@ module Queso
 
   class Constraint
     attr_accessor :attribute, :operator, :value
-    def initialize(&block)
+    def initialize
       yield self if block_given?
     end
     def to_s
@@ -86,6 +86,7 @@ module Queso
     attr_accessor :attribute, :dir
     def initialize
       @dir = 'desc'
+      yield self if block_given?
     end
     def to_s
       "#{attribute} #{dir}"
