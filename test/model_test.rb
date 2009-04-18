@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'queso_search'
 
 class ActiveRecord::ConnectionAdapters::SQLiteAdapter
   def execute_with_log(sql, name = nil)
@@ -17,6 +16,7 @@ class ModelTest < Test::Unit::TestCase
   def setup
     $sql = []
   end
+
   context "Basic model" do
   
     should "provide type-specific operators" do

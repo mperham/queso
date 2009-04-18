@@ -4,7 +4,7 @@ module QuesoSearchable
     base.class_eval do
 
       def self.queso_searchable(*args)
-        options = args.extract_options!
+        Queso::Search::OPTIONS[self.name] = args.extract_options!
       end
 
     end

@@ -3,6 +3,7 @@ require 'rubygems'
 require 'shoulda'
 require 'active_record'
 
+$LOAD_PATH << File.dirname(__FILE__) + '/../app/models'
 require 'queso'
 
 ActiveRecord::Base.send(:include, QuesoSearchable)
@@ -24,4 +25,3 @@ ActiveRecord::Schema.define(:version => 20090407202245) do
   end
 end
 
-$LOAD_PATH << File.dirname(__FILE__) + '/../app/models'

@@ -23,11 +23,15 @@ module Queso
   end
   
   class Search
-    attr_accessor :model_class
+    OPTIONS = {}
+
+    attr_accessor :model_name
     attr_accessor :page_size, :current_page
-    attr_accessor :terms, :orders
-    def initialize(model_class)
-      self.model_class = model_class
+    attr_accessor :terms, :orders, :attributes
+
+    def initialize(model_name)
+      self.model_name = model_name
+      self.attributes = OPTIONS.fetch(model_name)[:display_attributes]
       self.terms = []
       self.orders = []
       self.page_size = 25
@@ -44,6 +48,7 @@ module Queso
       query = klass.scoped(:limit => self.page_size, :offset => (self.current_page - 1) * page_size)
       query = query.scoped(:order => sorting) if sorting?
       query = query.scoped(:conditions => constraints) if constraints?
+      query = query.scoped(:select => attributes) if attributes
       query.all
     end
     
@@ -65,10 +70,12 @@ module Queso
       orders.size > 0
     end
     
-    private
-    
     def klass
-      self.model_class.constantize
+      model_name.constantize
+    end
+
+    def headers
+      attributes || klass.columns.map(&:name)
     end
   end
 

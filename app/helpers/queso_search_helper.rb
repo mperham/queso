@@ -15,11 +15,11 @@ module QuesoSearchHelper
   end
   
   def current_query(model)
-    session.clear
-    unless session.has_key? "queso_#{model.name}_query"
-      session["queso_#{model.name}_query"] = Queso::Search.new(model.name)
+    name = model.name if model.kind_of? ActiveRecord::Base
+    unless session.has_key? "queso_#{name}_query"
+      session["queso_#{name}_query"] = Queso::Search.new(name)
     end
-    session["queso_#{model.name}_query"]
+    session["queso_#{name}_query"]
   end
   
   def delete_term(term)
@@ -29,4 +29,26 @@ module QuesoSearchHelper
   def add_term(model)
     '&nbsp;'
   end
+
+  def stripe_class(idx)
+    idx % 2 == 0 ? 'even' : 'odd'
+  end
+  
+  def column_values(query, result)
+    returning [] do |values|
+      query.headers do |name|
+        values << result.send(name.to_sym)
+      end
+    end
+  end
+  
+  def formatted(value)
+    case value
+    when Float
+      "0.3f" % value
+    else
+      value.to_s
+    end
+  end
+
 end

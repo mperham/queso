@@ -1,3 +1,4 @@
+require 'queso_search'
 require 'queso_searchable'
 require 'yaml'
 
