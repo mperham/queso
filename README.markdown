@@ -2,16 +2,16 @@ Queso
 ============
 
 Queso is an engine for Rails 2.3+ which adds a generic search interface for building queries on any
-model.  See, for example, Trac''s [generic query interface for tickets](http://trac.edgewall.org/query).
+model.  See, for example, Trac's [generic query interface for tickets](http://trac.edgewall.org/query).
 
-It is also a delicious cheese-based foodstuff which pairs excellently with chips and Dos XX beer.
+It's also a delicious cheese-based foodstuff which pairs excellently with chips and Dos XX beer.
 
 Installation
 ------------
 
 Just add Queso as a gem to your Rails 2.3 application, via `config/environment.rb`:
 
-    config.gem 'mperham-inquiry', :source => 'http://gems.github.com'
+    config.gem 'mperham-queso', :source => 'http://gems.github.com'
 
 Usage
 -----
@@ -28,7 +28,7 @@ Second, add the query partial to a page in your application to display the searc
 
 Lastly, add a container for the query results in the HTML page:
 
-    <div id="query_results">
+    <div id="queso_results">
       This div will be updated with the query results when the user submits the query.
     </div>
 
