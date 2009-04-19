@@ -8,14 +8,16 @@
         <td><%= term.attribute %></td>
         <td><%= term.operator %></td>
         <td><%= term.value %></td>
-        <td><%= delete_term(term) %></td>
+        <td><%= delete_term(model, term) %></td>
       </tr>
     <% end -%>
+    <% form_remote_tag :url => { :controller => 'queso_searches', :id => model.name, :action => 'add_term' } , :update => 'terms' do %>
     <tr class="newterm">
       <td><%= attribute_selector(model) %></td>
       <td><%= operator_selector %></td>
       <td><%= value_input %></td>
-      <td><%= add_term(model) %></td>
+      <td><%= submit_tag '+' %></td>
     </tr>
+    <% end %>
   </table>
 </div>

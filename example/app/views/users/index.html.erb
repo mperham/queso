@@ -1,2 +1,8 @@
-<%= render :partial => 'queso/query', :locals => { :model => User } %>
-<%= render :partial => 'queso/results', :locals => { :model => User } %>
+<html>
+<head>
+<%= javascript_include_tag 'prototype' %>
+</head>
+<body>
+  <%= render :partial => 'queso_searches/query', :locals => { :model => User } %>
+  <%= render :partial => 'queso_searches/results', :locals => { :model => User } %>
+</body>

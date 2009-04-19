@@ -31,7 +31,7 @@ module Queso
 
     def initialize(model_name)
       self.model_name = model_name
-      self.attributes = OPTIONS.fetch(model_name)[:display_attributes]
+      self.attributes = OPTIONS.fetch(model_name, {})[:display_attributes]
       self.terms = []
       self.orders = []
       self.page_size = 25

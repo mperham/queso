@@ -37,7 +37,7 @@ Rails::Initializer.run do |config|
 
   # Reload plugin classes so we can test Queso without having the kill the example
   # server on every change.
-  config.reload_plugins = true
+  config.reload_plugins = [:'adhoc-search']
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
