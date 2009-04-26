@@ -3,6 +3,6 @@
 <%= javascript_include_tag :defaults %>
 </head>
 <body>
-  <%= render :partial => 'queso_searches/query', :locals => { :model => User } %>
-  <%= render :partial => 'queso_searches/results', :locals => { :model => User } %>
+  <%= queso_filter_for(User) %>
+  <%= queso_results_for(User) %>
 </body>

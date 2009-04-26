@@ -1,7 +1,7 @@
 <table id="terms">
-  <%= render :collection => current_query(model).terms %>
+  <%= render :collection => current_query.terms %>
   <tr id="newterm">
-    <td><%= attribute_selector(model) %></td>
+    <td><%= attribute_selector %></td>
     <td><%= operator_selector %></td>
     <td><%= value_input %></td>
     <td><%= submit_tag '+' %></td>

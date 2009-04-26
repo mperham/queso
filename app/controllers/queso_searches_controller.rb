@@ -1,45 +1,54 @@
 require 'queso_search'
 
 class QuesoSearchesController < ApplicationController
+  
+  before_filter :query_setup
 
   def search
     # First add a term if the user added a term and 
     # submitted the query as one action
     add_term 
-    query = current_query(params[:id])
-    query.page_size = params[:page_size] || 25
-    query.current_page = params[:current_page] || 1
-    @total = query.count
-    @results = query.search
+    @query.page_size = params[:page_size] || 25
+    @query.current_page = params[:current_page] || 1
+    @total = @query.count
+    @results = @query.search
     render :partial => 'results'
   end
   
   def add_term
-    if params[:term][:attribute].present? and params[:term][:operator].present?
-      query = current_query(params[:id])
+    if params[:term][:attribute].present? and params[:term][:operator].present? and params[:term][:value].present?
+      @query = current_query(params[:id])
       @term = Queso::Constraint.new do |t|
         t.attribute = params[:term][:attribute]
         t.operator = params[:term][:operator]
         t.value = params[:term][:value]
       end
-      query.terms << @term
-    end
-    render :update do |page|
-      page.insert_html :before, 'newterm', :partial => 'term'
-      page.visual_effect :highlight, 'terms'
+      @query.terms << @term
+      @term_counter = @query.terms.size - 1
+      render :update do |page|
+        page.insert_html :before, 'newterm', render(:partial => 'term')
+        page.visual_effect :highlight, 'terms'
+        page['term_form'].reset
+      end
+    else
+      render :nothing => true, :status => 200
     end
   end
   
   def rm_term
-    query = current_query(params[:id])
     idx = Integer(params[:term_idx])
-    @term = query.terms.delete_at(idx)
+    @term = @query.terms.delete_at(idx)
     render :update do |page|
       page.replace_html 'terms', :partial => 'terms'
     end
   end
   
   private
+  
+  def query_setup
+    @query = current_query(params[:id])
+    @queso_model = @query.model_name
+  end
   
   def current_query(model)
     name = case model
