@@ -1,6 +1,6 @@
 require 'queso_search'
+
 class QuesoSearchesController < ApplicationController
-  layout nil
 
   def search
     # First add a term if the user added a term and 
@@ -24,12 +24,19 @@ class QuesoSearchesController < ApplicationController
       end
       query.terms << @term
     end
+    render :update do |page|
+      page.insert_html :before, 'newterm', :partial => 'term'
+      page.visual_effect :highlight, 'terms'
+    end
   end
   
   def rm_term
     query = current_query(params[:id])
-    query.terms.delete_at(Integer(params[:term_idx]))
-    # TODO rm term row in ui
+    idx = Integer(params[:term_idx])
+    @term = query.terms.delete_at(idx)
+    render :update do |page|
+      page.replace_html 'terms', :partial => 'terms'
+    end
   end
   
   private

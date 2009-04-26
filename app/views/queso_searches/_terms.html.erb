@@ -1,0 +1,12 @@
+<table id="terms">
+  <%= render :collection => current_query(model).terms %>
+  <tr id="newterm">
+    <td><%= attribute_selector(model) %></td>
+    <td><%= operator_selector %></td>
+    <td><%= value_input %></td>
+    <td><%= submit_tag '+' %></td>
+  </tr>
+  <tr>
+    <td colspan="4"><%= submit_tag 'Search' %></td>
+  </tr>
+</table>

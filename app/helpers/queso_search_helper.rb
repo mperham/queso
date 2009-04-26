@@ -22,13 +22,15 @@ module QuesoSearchHelper
     session["queso_#{name}_query"]
   end
   
-  def delete_term(term, model=nil)
+  def delete_term_link(term, model=nil)
     name = model ? model.name : params[:id]
-    "<a href='/queso_searches/#{name}/rm_term?term_idx=#{current_query(name).terms.index(term)}'>Delete</a>"
+    link_to_remote 'X', 
+      { :url => "/queso_searches/#{name}/rm_term?term_idx=#{current_query(name).terms.index(term)}" },
+      { :method => :delete }
   end
 
   def add_term(model)
-    "<input type=\"submit\" value=\"+\" />"
+    submit_tag '+'
   end
 
   def stripe_class(idx)
