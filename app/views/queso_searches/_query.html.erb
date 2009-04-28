@@ -1,8 +1,12 @@
+<style>
+  .queso_search #terms { background-color: #def; }
+  #queso_results { background-color: #dfe; }
+</style>
 <div class="queso_search">
   <h1>Find <%= current_model.pluralize.titleize %></h1>
   
   <h2>Criteria</h2>
-  <% form_remote_tag :url => { :controller => 'queso_searches', :id => current_model, :action => 'add_term' }, :html => { :id => 'term_form' } do %>
+  <% form_remote_tag :url => { :controller => 'queso_searches', :id => current_model, :action => 'submit' }, :html => { :id => 'term_form' } do %>
     <%= render :partial => 'queso_searches/terms' %>
   <% end %>
 </div>

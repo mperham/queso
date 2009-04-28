@@ -1,8 +1,9 @@
-<% if @results.present? %>
+<div id="queso_results">
+  <% if @results.present? %>
   <div>
     Found <%= @total %> <%= @query.klass.name.pluralize %>.
   </div>
-  <table class="results">
+  <table>
     <thead>
       <tr>
         <% @query.headers.each do |name| %>
@@ -15,11 +16,12 @@
     <tbody>
       <% @results.each_with_index do |result, idx| %>
         <tr class="<%= stripe_class(idx) %>">
-          <% column_values(@query, result) do |value| -%>
+          <% column_values(@query, result).each do |value| %>
             <td><%= formatted(value) %></td>
-          <% end -%>
+          <% end %>
         </tr>
-      <% end -%>
+      <% end %>
     </tbody>
   </table>
-<% end %>
+  <% end %>
+</div>

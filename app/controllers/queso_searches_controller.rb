@@ -4,34 +4,21 @@ class QuesoSearchesController < ApplicationController
   
   before_filter :query_setup
 
-  def search
+  def submit
     # First add a term if the user added a term and 
     # submitted the query as one action
     add_term 
     @query.page_size = params[:page_size] || 25
     @query.current_page = params[:current_page] || 1
     @total = @query.count
-    @results = @query.search
-    render :partial => 'results'
-  end
-  
-  def add_term
-    if params[:term][:attribute].present? and params[:term][:operator].present? and params[:term][:value].present?
-      @query = current_query(params[:id])
-      @term = Queso::Constraint.new do |t|
-        t.attribute = params[:term][:attribute]
-        t.operator = params[:term][:operator]
-        t.value = params[:term][:value]
-      end
-      @query.terms << @term
-      @term_counter = @query.terms.size - 1
-      render :update do |page|
+    @results = @query.results
+    render :update do |page|
+      if @term
         page.insert_html :before, 'newterm', render(:partial => 'term')
         page.visual_effect :highlight, 'terms'
         page['term_form'].reset
       end
-    else
-      render :nothing => true, :status => 200
+      page.replace_html 'queso_results', :partial => 'results'
     end
   end
   
@@ -44,6 +31,19 @@ class QuesoSearchesController < ApplicationController
   end
   
   private
+  
+  def add_term
+    if params[:term][:attribute].present? and params[:term][:operator].present? and params[:term][:value].present?
+      @query = current_query(params[:id])
+      @term = Queso::Constraint.new do |t|
+        t.attribute = params[:term][:attribute]
+        t.operator = params[:term][:operator]
+        t.value = params[:term][:value]
+      end
+      @query.terms << @term
+      @term_counter = @query.terms.size - 1
+    end
+  end
   
   def query_setup
     @query = current_query(params[:id])

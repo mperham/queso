@@ -48,7 +48,7 @@ module QuesoSearchHelper
   
   def column_values(query, result)
     returning [] do |values|
-      query.headers do |name|
+      query.headers.each do |name|
         values << result.send(name.to_sym)
       end
     end
@@ -57,7 +57,7 @@ module QuesoSearchHelper
   def formatted(value)
     case value
     when Float
-      "0.3f" % value
+      "%0.3f" % value
     else
       value.to_s
     end
