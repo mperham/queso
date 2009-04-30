@@ -1,3 +1,5 @@
+require 'set'
+
 module Queso
   OPERATORS = {
     :string => ['contains', 'does not contain', 'begins with', 'ends with', 'is', 'is not'],
@@ -23,6 +25,10 @@ module Queso
   end
   
   class Search
+    DEFAULT_OPTIONS = {
+      :exclude => %w(created_at updated_at lock_version)
+    }
+
     OPTIONS = {}
 
     attr_accessor :model_name
@@ -75,7 +81,7 @@ module Queso
     end
 
     def headers
-      attributes || klass.columns.map(&:name)
+      @headers ||= (Set.new(attributes || klass.columns.map(&:name)) - OPTIONS[model_name][:exclude])
     end
   end
 

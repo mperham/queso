@@ -8,7 +8,7 @@
       <tr>
         <% @query.headers.each do |name| %>
         <th>
-          <%= name %>
+          <%= name.humanize %>
         </th>
         <% end %>
       </tr>
