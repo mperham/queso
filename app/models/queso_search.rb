@@ -55,7 +55,7 @@ module Queso
     def constraints
       sql = terms.join(" AND ")
       values = terms.map(&:value).compact
-      [sql, values]
+      [sql] + values
     end
     
     def constraints?
