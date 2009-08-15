@@ -12,6 +12,10 @@ module QuesoSearchHelper
     render :partial => 'queso_searches/results'
   end
   
+  def queso_debug
+    "<p class=\"queso_debug\">#{current_query.inspect}</p>"
+  end
+  
   def current_model
     @queso_model
   end
@@ -36,12 +40,6 @@ module QuesoSearchHelper
     session["queso_#{name}_query"]
   end
   
-  def delete_term_link(term_idx)
-    link_to_remote 'X', 
-      { :url => "/queso_searches/#{current_model}/rm_term?term_idx=#{term_idx}" },
-      { :method => :delete }
-  end
-
   def stripe_class(idx)
     idx % 2 == 0 ? 'even' : 'odd'
   end

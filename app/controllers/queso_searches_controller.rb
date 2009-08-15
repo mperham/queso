@@ -3,6 +3,7 @@ require 'queso_search'
 class QuesoSearchesController < ApplicationController
   
   before_filter :query_setup
+  helper QuesoSearchHelper
 
   def submit
     # First add a term if the user added a term and 

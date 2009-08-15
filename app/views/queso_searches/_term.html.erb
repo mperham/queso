@@ -1,6 +1,10 @@
 <tr>
-  <td><%= @term.attribute %></td>
-  <td><%= @term.operator %></td>
-  <td><%= @term.value %></td>
-  <td><%= delete_term_link(@term_counter) %></td>
-</tr>
+  <td><%= h @term.attribute %></td>
+  <td><%= h @term.operator %></td>
+  <td><%= h @term.value %></td>
+  <td>
+    <%= link_to_remote 'X', 
+      { :url => "/queso_searches/#{@query.model_name}/rm_term?term_idx=#{@term_counter}" },
+      { :method => :delete } -%>
+  </td>
+</tr>  

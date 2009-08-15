@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  queso_searchable
+  queso_searchable :exclude => 'birthdate'
 end

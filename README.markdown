@@ -40,12 +40,6 @@ Current Limitations
 * relies on the Engine feature of Rails 2.3 so it will not work on 2.2 or earlier.
 
 
-Thanks
-------
-
-The development of Queso is sponsored by [OneSpot](http://www.onespot.com).
-
-
 Credits
 -------
 

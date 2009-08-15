@@ -1,12 +1,42 @@
 <style>
+  BODY { font-family: verdana, arial, sans-serif; }
   .queso_search #terms { background-color: #def; }
-  #queso_results { background-color: #dfe; }
+  .queso_results { background-color: #dfe; }
+  .queso_results TD { padding-left: 30px; }
+  .queso_debug { border: solid 1px black; }
+  .queso_search FORM DIV { display: inline; }
 </style>
 <div class="queso_search">
   <h1>Find <%= current_model.pluralize.titleize %></h1>
-  
   <h2>Criteria</h2>
-  <% form_remote_tag :url => { :controller => 'queso_searches', :id => current_model, :action => 'submit' }, :html => { :id => 'term_form' } do %>
-    <%= render :partial => 'queso_searches/terms' %>
+
+  <% form_remote_tag :url => "/queso_searches/#{current_model}/submit", :html => { :id => 'term_form' } do %>
+    <table id="terms">
+
+      <% current_query.terms.each_with_index do |term, idx| %>
+        <tr>
+          <td><%= h term.attribute %></td>
+          <td><%= h term.operator %></td>
+          <td><%= h term.value %></td>
+          <td>
+            <%= link_to_remote 'X', 
+              { :url => "/queso_searches/#{current_model}/rm_term?term_idx=#{idx}" },
+              { :method => :delete } -%>
+          </td>
+        </tr>
+      <% end %>
+
+        <tr id="newterm">
+          <td><%= attribute_selector %></td>
+          <td><%= operator_selector %></td>
+          <td><%= value_input %></td>
+          <td><%= submit_tag '+' %></td>
+        </tr>
+        <tr>
+          <td colspan="4"><%= submit_tag 'Search' %></td>
+        </tr>
+
+    </table>
   <% end %>
+
 </div>

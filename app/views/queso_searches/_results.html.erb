@@ -1,4 +1,4 @@
-<div id="queso_results">
+<div class="queso_results">
   <% if @results.present? %>
   <div>
     Found <%= @total %> <%= @query.klass.name.pluralize %>.
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <% @results.each_with_index do |result, idx| %>
-        <tr class="<%= stripe_class(idx) %>">
+        <tr class="<%= idx.even? ? 'even' : 'odd' %>">
           <% column_values(@query, result).each do |value| %>
             <td><%= formatted(value) %></td>
           <% end %>
