@@ -17,14 +17,27 @@ module QuesoSearchHelper
   end
 
   def current_query
-    name = current_model
-    session["queso_#{name}_query"] ||= Queso::Search.new(name)
+    @query = (session["queso_#{current_model}_query"] ||= Queso::Search.new(current_model))
   end
   
   def column_values(query, result)
     returning [] do |values|
       query.headers.each do |name|
         values << result.send(name.to_sym)
+      end
+    end
+  end
+  
+  def query_results
+    @results || begin
+      if @query and !@query.terms.blank?
+        @query.page_size = params[:page_size] || 25
+        @query.current_page = params[:current_page] || 1
+        @total = @query.count
+        @results = @query.results
+        puts "Results"
+        p @results
+        @results
       end
     end
   end

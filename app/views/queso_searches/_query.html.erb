@@ -1,11 +1,12 @@
 <style>
-  BODY { font-family: verdana, arial, sans-serif; }
-  .queso_search #terms { background-color: #def; }
-  .queso_results .even TD { background-color: #dfe; }
-  .queso_results .odd TD { background-color: #dde; }
-  .queso_results TD { padding-left: 30px; }
-  .queso_debug { border: solid 1px black; }
+  BODY { font-family: verdana, arial, sans-serif; font-size: 14px; }
   .queso_search FORM DIV { display: inline; }
+  .queso_search #terms { background-color: #def; }
+  .queso_search #sorts { background-color: #fed; }
+  #queso_results .even TD { background-color: #dfe; }
+  #queso_results .odd TD { background-color: #dde; }
+  #queso_results TD { padding-left: 30px; }
+  .queso_debug { border: solid 1px black; }
 </style>
 <div class="queso_search">
   <h1>Find <%= current_model.pluralize.titleize %></h1>
@@ -27,17 +28,37 @@
         </tr>
       <% end %>
 
-        <tr id="newterm">
-          <td><%= select_tag 'term[attribute]', options_from_collection_for_select(current_query.klass.columns, :name, :name) %></td>
-          <td><%= select_tag 'term[operator]', options_for_select(['=', '<', '>', '<=', '>=', 'is null', 'is not null', 'like']) %></td>
-          <td><%= text_field_tag 'term[value]', '' %></td>
-          <td><%= submit_tag '+' %></td>
-        </tr>
-        <tr>
-          <td colspan="4"><%= submit_tag 'Search' %></td>
-        </tr>
+      <tr id="newterm">
+        <td><%= select_tag 'term[attribute]', options_from_collection_for_select(current_query.klass.columns, :name, :name) %></td>
+        <td><%= select_tag 'term[operator]', options_for_select(['=', '<', '>', '<=', '>=', 'is null', 'is not null', 'like']) %></td>
+        <td><%= text_field_tag 'term[value]', '' %></td>
+        <td><%= submit_tag 'Add Constraint' %></td>
+      </tr>
+    </table>
+    
+    <table id="sorts">
+      <% current_query.orders.each_with_index do |order, idx| %>
+      <tr id="sort-<%= idx %>">
+        <td><%= h order.attribute %></td>
+        <td><%= h order.dir %></td>
+        <td>
+          <%= link_to_remote 'X', 
+            { :url => "/queso_searches/#{current_model}/rm_order?term_idx=#{idx}" },
+            { :method => :delete } -%>
+        </td>
+      </tr>
+      <% end %>
+
+      <tr id="newsort">
+        <td><%= select_tag 'sort[attribute]', options_from_collection_for_select(current_query.klass.columns, :name, :name) %></td>
+        <td><%= select_tag 'sort[dir]', options_for_select(['asc', 'desc']) %></td>
+        <td><%= submit_tag 'Add Sort' %></td>
+      </tr>
 
     </table>
+
+    <%= submit_tag 'Search' %>
+
   <% end %>
 
 </div>

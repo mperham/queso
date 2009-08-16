@@ -1,5 +1,5 @@
-<div class="queso_results">
-  <% if @results.present? %>
+<div id="queso_results">
+  <% if query_results %>
   <div>
     Found <%= @total %> <%= @query.klass.name.pluralize %>.
   </div>

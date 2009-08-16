@@ -1,0 +1,9 @@
+<tr id="sort-<%= @sort_counter %>">
+  <td><%= h @sort.attribute %></td>
+  <td><%= h @sort.dir %></td>
+  <td>
+    <%= link_to_remote 'X', 
+      { :url => "/queso_searches/#{@query.model_name}/rm_order?sort_idx=#{@sort_counter}" },
+      { :method => :delete } -%>
+  </td>
+</tr>

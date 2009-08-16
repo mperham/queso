@@ -82,7 +82,13 @@ module Queso
     end
 
     def headers
-      @headers ||= (Set.new(attributes || klass.columns.map(&:name)) - OPTIONS[model_name][:exclude])
+      @headers ||= begin
+        attributes || begin
+          props = klass.columns.map(&:name)
+          excludes = (Array(OPTIONS[model_name][:exclude]) + DEFAULT_OPTIONS[:exclude]).uniq
+          props - excludes
+        end
+      end
     end
   end
 
