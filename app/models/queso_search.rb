@@ -36,6 +36,7 @@ module Queso
     attr_accessor :terms, :orders, :attributes
 
     def initialize(model_name)
+      puts "Creating new search for #{model_name}"
       self.model_name = model_name
       self.attributes = OPTIONS.fetch(model_name, {})[:display_attributes]
       self.terms = []

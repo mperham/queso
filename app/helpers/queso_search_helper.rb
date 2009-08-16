@@ -12,36 +12,13 @@ module QuesoSearchHelper
     render :partial => 'queso_searches/results'
   end
   
-  def queso_debug
-    "<p class=\"queso_debug\">#{current_query.inspect}</p>"
-  end
-  
   def current_model
     @queso_model
   end
 
-  def attribute_selector
-    select_tag 'term[attribute]', options_from_collection_for_select(current_query.klass.columns, :name, :name)
-  end
-  
-  def operator_selector
-    select_tag 'term[operator]', options_for_select(['=', '<', '>', '<=', '>=', 'is null', 'is not null', 'like'])
-  end
-  
-  def value_input
-    text_field_tag 'term[value]', ''
-  end
-  
   def current_query
     name = current_model
-    unless session.has_key? "queso_#{name}_query"
-      session["queso_#{name}_query"] = Queso::Search.new(name)
-    end
-    session["queso_#{name}_query"]
-  end
-  
-  def stripe_class(idx)
-    idx % 2 == 0 ? 'even' : 'odd'
+    session["queso_#{name}_query"] ||= Queso::Search.new(name)
   end
   
   def column_values(query, result)

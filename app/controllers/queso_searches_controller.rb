@@ -27,7 +27,7 @@ class QuesoSearchesController < ApplicationController
     idx = Integer(params[:term_idx])
     @term = @query.terms.delete_at(idx)
     render :update do |page|
-      page.replace_html 'terms', :partial => 'terms'
+      page.remove "term-#{idx}"
     end
   end
   

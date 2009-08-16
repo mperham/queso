@@ -6,5 +6,7 @@
   <%= queso_filter_for(User) %>
   <%= queso_results_for(User) %>
   
-  <%= queso_debug %>
+  <p class="queso_debug">
+    <%= h current_query.inspect %>
+  </p>
 </body>

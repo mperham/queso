@@ -1,7 +1,8 @@
 <style>
   BODY { font-family: verdana, arial, sans-serif; }
   .queso_search #terms { background-color: #def; }
-  .queso_results { background-color: #dfe; }
+  .queso_results .even TD { background-color: #dfe; }
+  .queso_results .odd TD { background-color: #dde; }
   .queso_results TD { padding-left: 30px; }
   .queso_debug { border: solid 1px black; }
   .queso_search FORM DIV { display: inline; }
@@ -14,7 +15,7 @@
     <table id="terms">
 
       <% current_query.terms.each_with_index do |term, idx| %>
-        <tr>
+        <tr id="term-<%= idx %>">
           <td><%= h term.attribute %></td>
           <td><%= h term.operator %></td>
           <td><%= h term.value %></td>
@@ -27,9 +28,9 @@
       <% end %>
 
         <tr id="newterm">
-          <td><%= attribute_selector %></td>
-          <td><%= operator_selector %></td>
-          <td><%= value_input %></td>
+          <td><%= select_tag 'term[attribute]', options_from_collection_for_select(current_query.klass.columns, :name, :name) %></td>
+          <td><%= select_tag 'term[operator]', options_for_select(['=', '<', '>', '<=', '>=', 'is null', 'is not null', 'like']) %></td>
+          <td><%= text_field_tag 'term[value]', '' %></td>
           <td><%= submit_tag '+' %></td>
         </tr>
         <tr>
