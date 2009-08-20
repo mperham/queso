@@ -35,10 +35,11 @@ module QuesoSearchHelper
         @query.current_page = params[:current_page] || 1
         @total = @query.count
         @results = @query.results
-        puts "Results"
-        p @results
         @results
       end
+    rescue => e
+      @results = []
+      @total = 0
     end
   end
   

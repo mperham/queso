@@ -29,7 +29,8 @@
       <% end %>
 
       <tr id="newterm">
-        <td><%= select_tag 'term[attribute]', options_from_collection_for_select(current_query.klass.columns, :name, :name) %></td>
+        <% options = current_query.klass.columns.map { |col| "<option value='#{col.name}' data_type='#{col.type}' nullable='#{col.null}'>#{col.name}</option>" } %>
+        <td><%= select_tag 'term[attribute]', options, :onchange => 'update_operators();' %></td>
         <td><%= select_tag 'term[operator]', options_for_select(['=', '<', '>', '<=', '>=', 'is null', 'is not null', 'like']) %></td>
         <td><%= text_field_tag 'term[value]', '' %></td>
         <td><%= submit_tag 'Add Constraint' %></td>
@@ -62,3 +63,44 @@
   <% end %>
 
 </div>
+<script type="text/javascript">
+  var OPERATORS = new Array(5);
+  OPERATORS['string'] = ['LIKE', 'NOT LIKE', '=', '!='];
+  OPERATORS['numeric'] = ['>', '>=', '=', '!=', '<=', '<'];
+  OPERATORS['boolean'] = ['= true', '= false'];
+  OPERATORS['null'] = ['is null', 'is not null'];
+
+  function operators_for_type(type, nullable) {
+    switch (type) {
+      case 'string':
+        typeops = OPERATORS['string']; break;
+      case 'boolean':
+        typeops = OPERATORS['boolean']; break;
+      default:
+        typeops = OPERATORS['numeric']; break;
+    }
+    return (nullable == 'true') ? typeops.concat(OPERATORS['null']) : typeops;
+  }
+  
+  function update_operators() {
+    var attr = document.getElementById('term_attribute');
+    var option = attr.options[attr.selectedIndex];
+    var sel = document.getElementById('term_operator');
+    while (sel.options.length > 0) { 
+      sel.remove(0); 
+    }
+    var operators = operators_for_type(option.getAttribute('data_type'), option.getAttribute('nullable'));
+    for (var i=0; i<operators.length; i++) { 
+      newOption = document.createElement("option"); 
+      newOption.value = operators[i];  // assumes option string and value are the same 
+      newOption.text = operators[i]; 
+      try { 
+        sel.add(newOption);  // this will fail in DOM browsers but is needed for IE 
+      } 
+      catch (e) { 
+        sel.appendChild(newOption); 
+      } 
+    }
+  }
+  update_operators();
+</script>
