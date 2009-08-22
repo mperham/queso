@@ -67,7 +67,7 @@
   var OPERATORS = new Array(5);
   OPERATORS['string'] = ['LIKE', 'NOT LIKE', '=', '!='];
   OPERATORS['numeric'] = ['>', '>=', '=', '!=', '<=', '<'];
-  OPERATORS['boolean'] = ['= true', '= false'];
+  OPERATORS['boolean'] = ['=', '!='];
   OPERATORS['null'] = ['is null', 'is not null'];
 
   function operators_for_type(type, nullable) {

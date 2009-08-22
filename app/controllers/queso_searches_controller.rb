@@ -71,7 +71,7 @@ class QuesoSearchesController < ApplicationController
     # Need to be wary of security here.  Want to avoid SQL injection.
     # The value is escaped.  The operator is not so we ensure it is no longer than
     # the longest operator (is not null).
-    if params[:term][:attribute].present? and params[:term][:operator].present? and (params[:term][:value].present? || params[:term][:operator] =~ /^is /)
+    if params[:term][:attribute].present? and params[:term][:operator].present? and value?
       return if params[:term][:operator].size > 11
       @term = Queso::Constraint.new do |t|
         t.attribute = params[:term][:attribute]
@@ -81,6 +81,12 @@ class QuesoSearchesController < ApplicationController
       @query.terms << @term
       @term_counter = @query.terms.size - 1
     end
+  end
+  
+  SINGULAR_OP = ['= true', '= false', 'is null', 'is not null']
+  
+  def value?
+    params[:term][:value].present? || SINGULAR_OP.include?(params[:term][:operator])
   end
   
   def query_setup

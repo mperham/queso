@@ -3,6 +3,7 @@
   <div>
     Found <%= @total %> <%= @query.klass.name.pluralize %>.
   </div>
+  <% if @total > 0 %>
   <table>
     <thead>
       <tr>
@@ -23,5 +24,6 @@
       <% end %>
     </tbody>
   </table>
+  <% end %>
   <% end %>
 </div>

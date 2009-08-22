@@ -1,0 +1,2 @@
+* Date picker for date constraint value input
+* Better support for boolean constraints (currently have to input database-specific boolean value)

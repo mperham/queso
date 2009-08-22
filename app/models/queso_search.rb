@@ -2,24 +2,21 @@ require 'set'
 
 module Queso
   OPERATORS = {
-    :string => ['contains', 'does not contain', 'begins with', 'ends with', 'is', 'is not'],
+    :string => ['LIKE', 'NOT LIKE', '=', '!='],
     :numeric => ['>', '>=', '=', '!=', '<=', '<'],
-    :date => ['>', '>=', '=', '!=', '<=', '<'],
-    :boolean => ['is true', 'is false'],
+    :boolean => ['=', '!='],
     :null => ['is null', 'is not null'],
   }
   
   def self.operators_for_type(type, nullable=true)
     typeops = 
       case type
-      when :integer, :float
-        OPERATORS[:numeric]
       when :string
         OPERATORS[:string]
       when :boolean
         OPERATORS[:boolean]
       else
-        OPERATORS[:date]
+        OPERATORS[:numeric]
       end
     nullable ? typeops + OPERATORS[:null] : typeops
   end
@@ -98,7 +95,7 @@ module Queso
       yield self if block_given?
     end
     def to_s
-      "#{attribute} #{operator}#{value ? " ?" : ''}"
+      "#{attribute} #{operator}#{value.present? ? " ?" : ''}"
     end
   end
 
