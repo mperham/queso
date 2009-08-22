@@ -1,12 +1,9 @@
 <html>
-<head>
-<%= javascript_include_tag :defaults %>
-</head>
-<body>
-  <%= queso_filter_for(User) %>
-  <%= queso_results_for(User) %>
-  
-  <p class="queso_debug">
-    <%= h current_query.inspect %>
-  </p>
-</body>
+  <head>
+    <%= javascript_include_tag :defaults %>
+  </head>
+  <body>
+    <%= queso_filter_for(User) %>
+    <%= queso_results_for(User) %>
+  </body>
+</html>

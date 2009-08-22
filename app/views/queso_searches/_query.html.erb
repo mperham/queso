@@ -10,7 +10,6 @@
 </style>
 <div class="queso_search">
   <h1>Find <%= current_model.pluralize.titleize %></h1>
-  <h2>Criteria</h2>
 
   <% form_remote_tag :url => "/queso_searches/#{current_model}/submit", :html => { :id => 'term_form' } do %>
     <table id="terms">
